@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #003366; /* Dark blue header */
+    background-color: #003366; /* light purple header */
     color: white;
     padding: 20px;
     text-align: center;
@@ -58,7 +58,7 @@ section {
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #003366; /* Dark blue footer */
+    background-color: #003366; /* light purple header */
     color: white;
     position: relative;
     width: 100%;
