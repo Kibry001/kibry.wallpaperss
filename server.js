@@ -2,13 +2,25 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs'); // Required for checking and creating directories
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Set storage engine
 const storage = multer.diskStorage({
-    destination: './uploads/',
-    filename: function(req, file, cb){
+    destination: (req, file, cb) => {
+        const category = req.body.category; // Get the category from the request body
+        const dest = path.join(__dirname, 'uploads', category); // Build the category directory path
+        
+        // Ensure the directory exists; if not, create it
+        fs.mkdir(dest, { recursive: true }, (err) => {
+            if (err) {
+                return cb(new Error('Failed to create directory for category'));
+            }
+            cb(null, dest); // Set the file destination
+        });
+    },
+    filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
@@ -42,8 +54,9 @@ app.post('/upload', (req, res) => {
             return res.status(400).send("Error uploading file.");
         }
         
+        // Initialize category array if it doesn't exist
         if (!categories[category]) {
-            categories[category] = []; // Initialize category array if it doesn't exist
+            categories[category] = [];
         }
         
         // Store uploaded photo's filename in the corresponding category
@@ -53,8 +66,9 @@ app.post('/upload', (req, res) => {
 });
 
 // Serve uploaded images
-app.get('/uploads/:filename', (req, res) => {
-    res.sendFile(path.join(__dirname, 'uploads', req.params.filename));
+app.get('/uploads/:category/:filename', (req, res) => {
+    const { category, filename } = req.params;
+    res.sendFile(path.join(__dirname, 'uploads', category, filename));
 });
 
 app.listen(PORT, () => {
