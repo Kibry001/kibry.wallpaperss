@@ -18,18 +18,19 @@
     </header>
     <main>
         <h2>Select a category and upload a photo</h2>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-            <select name="category" required>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <select id="categorySelect" name="category" required>
                 <% categories.forEach(category => { %>
                     <option value="<%= category %>"><%= category %></option>
                 <% }) %>
             </select>
-            <input type="file" name="photo" required>
+            <input type="file" id="fileInput" name="photo" accept="image/*" required>
             <button type="submit">Upload Photo</button>
         </form>
     </main>
     <footer>
         <p>&copy; 2023 Photo Gallery</p>
     </footer>
+    <script src="/upload.js"></script> <!-- Link to your JS file for handling uploads -->
 </body>
 </html>
