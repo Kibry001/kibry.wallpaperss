@@ -73,6 +73,11 @@ main {
 
 .categories {
     margin-top: 20px;
+    padding: 10px; /* Adding some padding around the categories */
+    border: 2px solid #003366; /* Frame color */
+    border-radius: 10px; /* Rounded corners for the frame */
+    background-color: #fff; /* White background for the categories section */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for effect */
 }
 
 .categories h2 {
@@ -92,7 +97,7 @@ section {
 .category-box {
     display: inline-block;
     background-color: #fff;
-    border: 1px solid #003366;
+    border: 1px solid #003366; 
     border-radius: 5px;
     padding: 15px;
     margin: 5px;
