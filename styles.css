@@ -76,7 +76,7 @@ main {
     padding: 10px; /* Adding some padding around the categories */
     border: 2px solid #003366; /* Frame color */
     border-radius: 10px; /* Rounded corners for the frame */
-    background-color: #fff; /* White background for the categories section */
+    background-color: #DC143C; /* White background for the categories section */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for effect */
 }
 
