@@ -6,11 +6,28 @@
     <title>Home - Logan Wallpaper Gallery</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-    <header>
-        <h1>LOGAN_KE WALLPAPERS</h1>
-    </header>
+<header>
+    <h1>LOGAN_KE WALLPAPERS</h1>
+</header>
 <body>
     <main>
+        <!-- Admin Login Section -->
+        <div class="admin-section">
+            <h2>Admin Login</h2>
+            <form id="admin-login-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Log In</button>
+            </form>
+            <div id="upload-section" style="display:none;">
+                <h3>Upload Photo</h3>
+                <input type="file" id="file-upload" accept="image/*">
+                <button id="upload-button">Upload Photo</button>
+                <p id="upload-status"></p>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
         <div class="categories">
             <section id="nature">
                 <div class="category-box">Nature</div>
@@ -69,5 +86,37 @@
         </div>
         <p>&copy; 2023 Logan Wallpaper Gallery</p>
     </footer>
+
+    <script>
+        // Simple admin login functionality
+        const adminUsername = "Kibry001";
+        const adminPassword = "110853@#";
+
+        document.getElementById("admin-login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === adminUsername && password === adminPassword) {
+                document.getElementById("upload-section").style.display = "block";
+                alert("Login successful! You can now upload photos.");
+            } else {
+                alert("Invalid username or password.");
+            }
+        });
+
+        // Upload functionality (for demonstration)
+        document.getElementById("upload-button").addEventListener("click", function() {
+            const fileInput = document.getElementById("file-upload");
+            if (fileInput.files.length > 0) {
+                // Simulate file upload (In a real app, you'd send the file to the server)
+                document.getElementById("upload-status").innerText = `Photo ${fileInput.files[0].name} uploaded successfully!`;
+                // Clear the file input
+                fileInput.value = "";
+            } else {
+                document.getElementById("upload-status").innerText = "Please select a file to upload.";
+            }
+        });
+    </script>
 </body>
 </html>
