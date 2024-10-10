@@ -18,13 +18,15 @@
     </header>
     <main>
         <h2>Select a category and upload a photo</h2>
-        <form id="uploadForm" enctype="multipart/form-data">
+        <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="categorySelect">Choose a category:</label>
             <select id="categorySelect" name="category" required>
                 <% categories.forEach(category => { %>
                     <option value="<%= category %>"><%= category %></option>
                 <% }) %>
             </select>
-            <input type="file" id="fileInput" name="photo" accept="image/*" required>
+            <label for="fileInput">Choose a file:</label>
+            <input type="file" id="fileInput" name="image" accept="image/*" required> <!-- Updated field name to 'image' -->
             <button type="submit">Upload Photo</button>
         </form>
     </main>
