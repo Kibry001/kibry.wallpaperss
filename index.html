@@ -21,7 +21,21 @@
             </form>
             <div id="upload-section" style="display:none;">
                 <h3>Upload Photo</h3>
-                <input type="file" id="file-upload" accept="image/*">
+                <input type="file" id="file-upload" accept="image/*" required>
+                
+                <!-- Category Selection -->
+                <select id="category-select" required>
+                    <option value="">Select a Category</option>
+                    <option value="nature">Nature</option>
+                    <option value="sci-fi">Sci-Fi</option>
+                    <option value="movies">Movies</option>
+                    <option value="anime">Anime</option>
+                    <option value="sports">Sports</option>
+                    <option value="trading">Trading</option>
+                    <option value="retro">Retro</option>
+                    <option value="architectural">Architectural</option>
+                </select>
+                
                 <button id="upload-button">Upload Photo</button>
                 <p id="upload-status"></p>
             </div>
@@ -34,43 +48,36 @@
                 <p>Explore breathtaking wallpapers of nature.</p>
                 <a href="nature.html">View Nature Wallpapers</a>
             </section>
-
             <section id="sci-fi">
                 <div class="category-box">Sci-Fi</div>
                 <p>A collection of futuristic and imaginative wallpapers.</p>
                 <a href="sci-fi.html">View Sci-Fi Wallpapers</a>
             </section>
-
             <section id="movies">
                 <div class="category-box">Movies</div>
                 <p>Check out wallpapers from your favorite movies.</p>
                 <a href="movies.html">View Movie Wallpapers</a>
             </section>
-
             <section id="anime">
                 <div class="category-box">Anime</div>
                 <p>Dive into the world of anime with stunning wallpapers.</p>
                 <a href="anime.html">View Anime Wallpapers</a>
             </section>
-
             <section id="sports">
                 <div class="category-box">Sports</div>
                 <p>Discover wallpapers of your favorite sports teams.</p>
                 <a href="sports.html">View Sports Wallpapers</a>
             </section>
-
             <section id="trading">
                 <div class="category-box">Trading</div>
                 <p>Explore dynamic wallpapers related to trading.</p>
                 <a href="trading.html">View Trading Wallpapers</a>
             </section>
-
             <section id="retro">
                 <div class="category-box">Retro</div>
                 <p>Enjoy nostalgic retro wallpapers.</p>
                 <a href="retro.html">View Retro Wallpapers</a>
             </section>
-
             <section id="architectural">
                 <div class="category-box">Architectural</div>
                 <p>Admire stunning architectural wallpapers.</p>
@@ -105,16 +112,37 @@
             }
         });
 
-        // Upload functionality (for demonstration)
+        // Upload functionality
         document.getElementById("upload-button").addEventListener("click", function() {
             const fileInput = document.getElementById("file-upload");
-            if (fileInput.files.length > 0) {
-                // Simulate file upload (In a real app, you'd send the file to the server)
-                document.getElementById("upload-status").innerText = `Photo ${fileInput.files[0].name} uploaded successfully!`;
-                // Clear the file input
-                fileInput.value = "";
+            const categorySelect = document.getElementById("category-select");
+            const uploadStatus = document.getElementById("upload-status");
+
+            if (fileInput.files.length > 0 && categorySelect.value) {
+                const formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+                formData.append('category', categorySelect.value);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    uploadStatus.innerText = `Photo "${fileInput.files[0].name}" uploaded successfully to ${categorySelect.value} category!`;
+                    fileInput.value = ""; // Clear the file input
+                    categorySelect.value = ""; // Reset category
+                })
+                .catch(error => {
+                    uploadStatus.innerText = "Error uploading the file.";
+                });
             } else {
-                document.getElementById("upload-status").innerText = "Please select a file to upload.";
+                uploadStatus.innerText = "Please select a file and a category to upload.";
             }
         });
     </script>
