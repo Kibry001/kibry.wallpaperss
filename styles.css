@@ -75,6 +75,15 @@ main {
     margin-top: 20px;
 }
 
+.categories h2 {
+    margin: 20px 0; /* Added margin for category headers */
+}
+
+.gallery img {
+    max-width: 100%;
+    height: auto;
+}
+
 section {
     text-align: center;
     margin: 10px 0;
