@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #003366; /* light purple header */
+    background-color: #003366; /* Dark blue header */
     color: white;
     padding: 20px;
     text-align: center;
@@ -31,8 +31,48 @@ main {
     padding: 20px;
 }
 
+.admin-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #ffffff; /* White background for admin section */
+    border: 1px solid #003366; /* Border color matching header */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for effect */
+}
+
+.admin-section h2 {
+    margin: 0 0 15px;
+}
+
+.admin-section form {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-section input[type="text"],
+.admin-section input[type="password"],
+.admin-section input[type="file"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.admin-section button {
+    padding: 10px;
+    background-color: #003366; /* Dark blue button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.admin-section button:hover {
+    background-color: #005599; /* Slightly lighter blue on hover */
+}
+
 .categories {
-    margin-top: 20px; /* Move categories down 1 cm */
+    margin-top: 20px;
 }
 
 section {
@@ -58,7 +98,7 @@ section {
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #003366; /* light purple header */
+    background-color: #003366; /* Dark blue footer */
     color: white;
     position: relative;
     width: 100%;
