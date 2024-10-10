@@ -120,7 +120,7 @@
 
             if (fileInput.files.length > 0 && categorySelect.value) {
                 const formData = new FormData();
-                formData.append('file', fileInput.files[0]);
+                formData.append('image', fileInput.files[0]);
                 formData.append('category', categorySelect.value);
 
                 fetch('/upload', {
