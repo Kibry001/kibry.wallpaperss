@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #E6E6FA; /* Dark blue header */
+    background-color: #A020F0; /* Dark blue header */
     color: white;
     padding: 20px;
     text-align: center;
@@ -35,7 +35,7 @@ main {
     margin-bottom: 20px;
     padding: 15px;
     background-color: #ffffff; /* White background for admin section */
-    border: 1px solid #E6E6FA; /* Border color matching header */
+    border: 1px solid #A020F0; /* Border color matching header */
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for effect */
 }
@@ -60,7 +60,7 @@ main {
 
 .admin-section button {
     padding: 10px;
-    background-color: #E6E6FA; /* Dark blue button */
+    background-color: #A020F0; /* Dark blue button */
     color: white;
     border: none;
     border-radius: 5px;
@@ -97,7 +97,7 @@ section {
 .category-box {
     display: inline-block;
     background-color: #fff;
-    border: 1px solid #E6E6FA; 
+    border: 1px solid #A020F0; 
     border-radius: 5px;
     padding: 15px;
     margin: 5px;
@@ -112,7 +112,7 @@ section {
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #E6E6FA; /* Dark blue footer */
+    background-color: #A020F0; /* Dark blue footer */
     color: white;
     position: relative;
     width: 100%;
