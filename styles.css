@@ -2,11 +2,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #d0e7ff; /* Light blue background */
 }
 
 header {
-    background-color: purple;
+    background-color: #003366; /* Dark blue header */
     color: white;
     padding: 20px;
     text-align: center;
@@ -27,28 +27,53 @@ nav a {
     text-decoration: none;
 }
 
-main {
-    padding: 20px;
+.category-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-section {
-    background: white;
+.category-box {
+    background: blue;
     border-radius: 5px;
     padding: 15px;
-    margin: 10px 0;
+    margin: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-width: 250px; /* Minimum width for responsive layout */
+    text-align: center; /* Center text in category box */
 }
 
 h2 {
-    color: purple;
+    color: #003366; /* Dark blue title color */
 }
 
 footer {
     text-align: center;
     padding: 10px;
-    background-color: purple;
+    background-color: #003366; /* Dark blue footer */
     color: white;
+    position: relative; /* Position the footer relative to its container */
+}
+
+.profile-container {
     position: absolute;
-    width: 100%;
-    bottom: 0;
+    bottom: 50px; /* Adjust according to your footer height */
+    left: 10px;  /* Adjust as needed for spacing */
+    display: flex;
+    align-items: center;
+}
+
+.profile-photo {
+    width: 100px; /* Set desired width */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 50%; /* Optional: makes the photo circular */
+    margin-right: 10px; /* Space between photo and link */
+}
+
+.social-media {
+    margin-right: 10px; /* Space for social media links */
+}
+
+footer p {
+    margin-top: 10px; /* Space above copyright text */
 }
