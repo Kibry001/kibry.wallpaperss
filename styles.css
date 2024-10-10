@@ -12,62 +12,69 @@ header {
     text-align: center;
 }
 
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
 main {
     padding: 20px;
 }
 
 .categories {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Center categories */
+    margin-top: 20px; /* Move categories down 1 cm */
 }
 
-.category {
-    background: white;
+section {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.category-box {
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid #003366;
     border-radius: 5px;
     padding: 15px;
-    margin: 10px;
+    margin: 5px;
+    width: calc(100% / 4 - 20px); /* Adjust category box width */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 200px; /* Fixed width for rectangular shape */
-    text-align: center; /* Center text */
 }
 
-h2 {
-    color: #003366; /* Dark blue title color */
+.category-box:hover {
+    background-color: #f0f0f0; /* Highlight on hover */
 }
 
 footer {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
+    text-align: center;
     padding: 10px;
     background-color: #003366; /* Dark blue footer */
     color: white;
     position: relative;
+    width: 100%;
     bottom: 0;
 }
 
 .profile {
     display: flex;
-    align-items: center; /* Align profile photo and social media */
+    align-items: center;
+    justify-content: flex-start; /* Align to the left */
+    margin: 10px 0; /* Add space above the copyright */
 }
 
 .profile-photo {
-    width: 60px; /* Set profile photo size */
-    height: auto;
-    border-radius: 50%; /* Make the photo circular */
-    margin-right: 10px; /* Space between photo and social media links */
-}
-
-.social-media a {
-    color: white;
-    text-decoration: none;
-}
-
-.social-media a:hover {
-    text-decoration: underline; /* Hover effect for social media link */
-}
-
-p {
-    margin: 0;
+    width: 50px; /* Adjust the size of profile photo */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Make it circular */
+    margin-right: 10px; /* Space between photo and links */
 }
