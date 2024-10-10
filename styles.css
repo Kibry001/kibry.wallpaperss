@@ -12,35 +12,24 @@ header {
     text-align: center;
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
+main {
+    padding: 20px;
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
-.category-container {
+.categories {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* Center categories */
 }
 
-.category-box {
-    background: blue;
+.category {
+    background: white;
     border-radius: 5px;
     padding: 15px;
     margin: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    min-width: 250px; /* Minimum width for responsive layout */
-    text-align: center; /* Center text in category box */
+    width: 200px; /* Fixed width for rectangular shape */
+    text-align: center; /* Center text */
 }
 
 h2 {
@@ -48,32 +37,37 @@ h2 {
 }
 
 footer {
-    text-align: center;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
     padding: 10px;
     background-color: #003366; /* Dark blue footer */
     color: white;
-    position: relative; /* Position the footer relative to its container */
+    position: relative;
+    bottom: 0;
 }
 
-.profile-container {
-    position: absolute;
-    bottom: 50px; /* Adjust according to your footer height */
-    left: 10px;  /* Adjust as needed for spacing */
+.profile {
     display: flex;
-    align-items: center;
+    align-items: center; /* Align profile photo and social media */
 }
 
 .profile-photo {
-    width: 100px; /* Set desired width */
-    height: auto; /* Maintains aspect ratio */
-    border-radius: 50%; /* Optional: makes the photo circular */
-    margin-right: 10px; /* Space between photo and link */
+    width: 60px; /* Set profile photo size */
+    height: auto;
+    border-radius: 50%; /* Make the photo circular */
+    margin-right: 10px; /* Space between photo and social media links */
 }
 
-.social-media {
-    margin-right: 10px; /* Space for social media links */
+.social-media a {
+    color: white;
+    text-decoration: none;
 }
 
-footer p {
-    margin-top: 10px; /* Space above copyright text */
+.social-media a:hover {
+    text-decoration: underline; /* Hover effect for social media link */
+}
+
+p {
+    margin: 0;
 }
