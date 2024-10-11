@@ -2,7 +2,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs'); // Required for checking and creating directories
+const fs = require('fs'); 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
         // Ensure the directory exists; if not, create it
         fs.mkdir(dest, { recursive: true }, (err) => {
             if (err) {
+                console.error('Failed to create directory:', err); // Log the error
                 return cb(new Error('Failed to create directory for category'));
             }
             cb(null, dest); // Set the file destination
@@ -46,42 +47,4 @@ app.get('/', (req, res) => {
 
 // Upload page
 app.get('/upload', (req, res) => {
-    res.render('upload', { categories: categoriesList });
-});
-
-// Handle the image upload and store it in the respective category
-app.post('/upload', (req, res) => {
-    const category = req.body.category;
-    upload(req, res, (err) => {
-        if (err) {
-            return res.status(400).send("Error uploading file.");
-        }
-
-        // Initialize category array if it doesn't exist
-        if (!categories[category]) {
-            categories[category] = [];
-        }
-
-        // Store uploaded photo's filename in the corresponding category
-        categories[category].push(req.file.filename);
-        res.redirect('/');
-    });
-});
-
-// Serve uploaded images based on category and filename
-app.get('/uploads/:category/:filename', (req, res) => {
-    const { category, filename } = req.params;
-    res.sendFile(path.join(__dirname, 'uploads', category, filename));
-});
-
-// Display images for a selected category dynamically
-app.get('/category/:name', (req, res) => {
-    const categoryName = req.params.name;
-    const images = categories[categoryName] || [];
-    res.render('category', { categoryName, images });
-});
-
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+    res.render('upload
