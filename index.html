@@ -120,8 +120,8 @@
 
             if (fileInput.files.length > 0 && categorySelect.value) {
                 const formData = new FormData();
-                formData.append('image', fileInput.files[0]);
-                formData.append('category', categorySelect.value);
+                formData.append('image', fileInput.files[0]); // Append the image file
+                formData.append('category', categorySelect.value); // Append the selected category
 
                 fetch('/upload', {
                     method: 'POST',
@@ -140,6 +140,7 @@
                 })
                 .catch(error => {
                     uploadStatus.innerText = "Error uploading the file.";
+                    console.error('Upload error:', error); // Log the error to the console for debugging
                 });
             } else {
                 uploadStatus.innerText = "Please select a file and a category to upload.";
