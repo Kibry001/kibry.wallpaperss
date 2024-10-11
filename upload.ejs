@@ -18,7 +18,6 @@
     </header>
     <main>
         <h2>Select a category and upload a photo</h2>
-        <div id="error-message" style="color: red;"></div> <!-- Error message display -->
         <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
             <label for="categorySelect">Choose a category:</label>
             <select id="categorySelect" name="category" required>
@@ -30,31 +29,9 @@
             <input type="file" id="fileInput" name="image" accept="image/*" required>
             <button type="submit">Upload Photo</button>
         </form>
-        <div id="success-message" style="color: green;"></div> <!-- Success message display -->
     </main>
     <footer>
-        <p>&copy; 2023 Photo Gallery</p>
+        <p>© 2023 Photo Gallery</p>
     </footer>
-    <script>
-        document.getElementById("uploadForm").addEventListener("submit", async (e) => {
-            e.preventDefault(); // Stop the form from submitting normally
-
-            const formData = new FormData(e.target);
-            const response = await fetch(e.target.action, {
-                method: 'POST',
-                body: formData
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                document.getElementById("success-message").innerText = 'File uploaded successfully!';
-                document.getElementById("error-message").innerText = ''; // Clear error message
-            } else {
-                document.getElementById("error-message").innerText = result.error || 'Error uploading the file.';
-                document.getElementById("success-message").innerText = ''; // Clear success message
-            }
-        });
-    </script>
 </body>
 </html>
-
