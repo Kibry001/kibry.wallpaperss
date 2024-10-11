@@ -2,7 +2,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs'); 
+const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -11,12 +11,11 @@ const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const category = req.body.category; // Get the category from the request body
         const dest = path.join(__dirname, 'uploads', category); // Build the category directory path
-        
+
         // Ensure the directory exists; if not, create it
         fs.mkdir(dest, { recursive: true }, (err) => {
             if (err) {
-                console.error('Failed to create directory:', err); // Log the error
-                return cb(new Error('Failed to create directory for category'));
+                return cb(err); // Pass the error to the callback
             }
             cb(null, dest); // Set the file destination
         });
@@ -35,7 +34,6 @@ const upload = multer({
 
 // Used to store uploaded photo filenames by category
 const categories = {};
-const categoriesList = ['Nature', 'Architecture', 'People', 'Animals']; // Example categories
 
 // Set view engine
 app.set('view engine', 'ejs');
@@ -44,12 +42,7 @@ app.use(express.urlencoded({ extended: true })); // To parse form data
 
 // Home page to show categories and uploaded images
 app.get('/', (req, res) => {
-    res.render('index', { categories: categoriesList, categoriesData: categories });
-});
-
-// Upload page
-app.get('/upload', (req, res) => {
-    res.render('upload', { categories: categoriesList });
+    res.render('index', { categories: Object.keys(categories) });
 });
 
 // Handle the image upload and store it in the respective category
@@ -63,8 +56,7 @@ app.post('/upload', (req, res) => {
 
     upload(req, res, (err) => {
         if (err) {
-            console.error('Error during file upload:', err); // Log the error
-            return res.status(400).send("Error uploading file: " + err.message); // Provide more detailed error message
+            return res.status(400).json({ error: err.message }); // Provide more detailed error message
         }
 
         // Initialize category array if it doesn't exist
@@ -74,7 +66,8 @@ app.post('/upload', (req, res) => {
 
         // Store uploaded photo's filename in the corresponding category
         categories[category].push(req.file.filename);
-        res.redirect('/'); // Redirect to home page after successful upload
+
+        res.json({ message: "File uploaded successfully.", filename: req.file.filename });
     });
 });
 
@@ -83,17 +76,9 @@ app.get('/uploads/:category/:filename', (req, res) => {
     const { category, filename } = req.params;
     res.sendFile(path.join(__dirname, 'uploads', category, filename), (err) => {
         if (err) {
-            console.error('Error serving file:', err);
             res.status(err.status).end();
         }
     });
-});
-
-// Display images for a selected category dynamically
-app.get('/category/:name', (req, res) => {
-    const categoryName = req.params.name;
-    const images = categories[categoryName] || [];
-    res.render('category', { categoryName, images });
 });
 
 // Start the server
