@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
         // Ensure the directory exists; if not, create it
         fs.mkdir(dest, { recursive: true }, (err) => {
             if (err) {
+                console.error('Directory creation error:', err); // Log the error
                 return cb(err); // Pass the error to the callback
             }
             cb(null, dest); // Set the file destination
@@ -30,7 +31,7 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits: { fileSize: 1000000 }, // Limit to 1MB
-}).single('image'); // Adjusted field name to 'image'
+}).single('image'); // Ensure this matches the input name in your form
 
 // Used to store uploaded photo filenames by category
 const categories = {};
@@ -50,13 +51,20 @@ app.post('/upload', (req, res) => {
     const category = req.body.category;
 
     // Check if category is provided
-    if (!category) {
-        return res.status(400).send("No category provided.");
+    if (!category || typeof category !== 'string' || category.trim() === '') {
+        return res.status(400).send("No valid category provided.");
     }
 
     upload(req, res, (err) => {
         if (err) {
-            return res.status(400).json({ error: err.message }); // Provide more detailed error message
+            console.error('Upload error:', err); // Log any upload errors
+            if (err instanceof multer.MulterError) {
+                // A Multer error occurred when uploading.
+                return res.status(400).json({ error: err.message });
+            } else {
+                // An unknown error occurred when uploading.
+                return res.status(400).json({ error: 'An unknown error occurred. Please try again.' });
+            }
         }
 
         // Initialize category array if it doesn't exist
@@ -65,9 +73,12 @@ app.post('/upload', (req, res) => {
         }
 
         // Store uploaded photo's filename in the corresponding category
-        categories[category].push(req.file.filename);
-
-        res.json({ message: "File uploaded successfully.", filename: req.file.filename });
+        if (req.file) {
+            categories[category].push(req.file.filename);
+            res.json({ message: "File uploaded successfully.", filename: req.file.filename });
+        } else {
+            res.status(400).json({ error: "File upload failed, no file found." });
+        }
     });
 });
 
@@ -76,7 +87,8 @@ app.get('/uploads/:category/:filename', (req, res) => {
     const { category, filename } = req.params;
     res.sendFile(path.join(__dirname, 'uploads', category, filename), (err) => {
         if (err) {
-            res.status(err.status).end();
+            console.error('File send error:', err); // Log any potential errors
+            res.status(err.status || 500).end();
         }
     });
 });
