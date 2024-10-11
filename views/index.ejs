@@ -134,7 +134,8 @@
                     return response.json();
                 })
                 .then(data => {
-                    uploadStatus.innerText = `Photo "${fileInput.files[0].name}" uploaded successfully to ${categorySelect.value} category!`;
+                    uploadStatus.innerHTML = `Photo "${fileInput.files[0].name}" uploaded successfully to ${categorySelect.value} category!
+                    <a href="${data.url}">${fileInput.files[0].name}</a>`;
                     fileInput.value = ""; // Clear the file input
                     categorySelect.value = ""; // Reset category
                 })
