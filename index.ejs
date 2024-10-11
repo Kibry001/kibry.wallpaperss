@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <header>
+        <h1>Photo Gallery</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/upload">Upload Photo</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Categories</h2>
+        <div class="categories">
+            <% categories.forEach(category => { %>
+                <h3><%= category %></h3>
+                <div class="gallery">
+                <% if (categoriesData[category]) { %>
+                    <% categoriesData[category].forEach(photo => { %>
+                        <img src="/uploads/<%= photo %>" alt="<%= category %>" style="width: 200px; margin: 10px;">
+                    <% }) %>
+                <% } %>
+                </div>
+            <% }); %>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Photo Gallery</p>
+    </footer>
+</body>
+</html>
