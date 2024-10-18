@@ -96,15 +96,17 @@
 
     <script>
         // Simple admin login functionality
-        const adminUsername = "Kibry001";
-        const adminPassword = "110853@#";
+        const adminCredentials = {
+            username: "Kibry001",
+            password: "110853@#"
+        };
 
         document.getElementById("admin-login-form").addEventListener("submit", function(event) {
             event.preventDefault();
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            if (username === adminUsername && password === adminPassword) {
+            if (username === adminCredentials.username && password === adminCredentials.password) {
                 document.getElementById("upload-section").style.display = "block";
                 alert("LOGIN SUCCESSFUL, YOU CAN NOW UPLOAD THE WALLPAPERS.");
             } else {
@@ -118,34 +120,42 @@
             const categorySelect = document.getElementById("category-select");
             const uploadStatus = document.getElementById("upload-status");
 
-            if (fileInput.files.length > 0 && categorySelect.value) {
-                const formData = new FormData();
-                formData.append('image', fileInput.files[0]); // Append the image file
-                formData.append('category', categorySelect.value); // Append the selected category
-
-                fetch('/upload', {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    uploadStatus.innerHTML = `Photo "${fileInput.files[0].name}" uploaded successfully to ${categorySelect.value} category!
-                    <a href="${data.url}">${fileInput.files[0].name}</a>`;
-                    fileInput.value = ""; // Clear the file input
-                    categorySelect.value = ""; // Reset category
-                })
-                .catch(error => {
-                    uploadStatus.innerText = "Error uploading the file.";
-                    console.error('Upload error:', error); // Log the error to the console for debugging
-                });
-            } else {
-                uploadStatus.innerText = "Please select a file and a category to upload.";
+            // Validate file input and category
+            if (fileInput.files.length === 0) {
+                uploadStatus.innerText = "Please select a file to upload.";
+                return;
             }
+            if (!categorySelect.value) {
+                uploadStatus.innerText = "Please select a category.";
+                return;
+            }
+
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('image', fileInput.files[0]); // Append the image file
+            formData.append('category', categorySelect.value); // Append the selected category
+
+            // Fetch call to the backend
+            fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                uploadStatus.innerHTML = `Photo "${fileInput.files[0].name}" uploaded successfully to <strong>${categorySelect.value}</strong> category!
+                <a href="${data.url}">View Photo</a>`;
+                fileInput.value = ""; // Clear the file input
+                categorySelect.value = ""; // Reset category
+            })
+            .catch(error => {
+                uploadStatus.innerText = "Error uploading the file.";
+                console.error('Upload error:', error); // Log the error to the console for debugging
+            });
         });
     </script>
 </body>
